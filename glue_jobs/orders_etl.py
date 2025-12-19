@@ -21,8 +21,7 @@ df = spark.read.option("header", "true") \
 df_transformed = df.select(
     "order_id",
     "customer_id",
-    "order_amount",
-    "order_date"
+    "order_amount"
 )
 
 df_transformed.write.mode("overwrite") \
