@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - pip install boto3
+
+  build:
+    commands:
+      - echo "Uploading Glue job script to S3"
+      - aws s3 cp glue_jobs/orders_etl.py s3://de-cicd-artifacts-bucket/glue/orders_etl.py
+
+      - echo "Triggering Glue job"
+      - python scripts/trigger_glue_job.py
+
+artifacts:
+  files:
+    - glue_jobs/orders_etl.py
